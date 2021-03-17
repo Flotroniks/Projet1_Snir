@@ -1,12 +1,22 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
 #include "edouard.h"
 #include "phillipe.h"
 
-
-
 int main()
 {
+	srand( time( NULL ) );
 	/* code */
-	testf();
+	logo();
+	
+
+
+	
+	
+		
+	
+
 	return 0;
 }
