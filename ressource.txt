@@ -1,27 +1,2 @@
-aaa
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-aa
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-
-a
+Chouette = 1 paire de X = le carré de X
+1 = 3   2 = 4   3 = 9   4 = 16  5 = 25   6 = 36
