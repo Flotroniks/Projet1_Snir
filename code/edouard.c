@@ -3,36 +3,151 @@
 #include <time.h>
 
 #define LARGEURMAX 156
+#define TRUE 1
 
-
-int testf()
+int square(int nb)
 {
-	
-	printf("test 123456789\n");
+	int resultat;
+	resultat=nb*nb;
+	return resultat;	
+}
+int suite()
+{
+	char yes='O';
+	char NO='N';
+	char test;
+
+	printf("\nquels joueur a tapé sur la table en criant \"Grelotte ça piquote ! \" en dernier\n ");
+	printf("Il y a-t-il un égalité  O/N\n ");
+	scanf("%c",&test);
+	if(test== yes)
+	{
+		printf(" pas cool le boeuf");
+	}
 
 }
 
-
-int rules()
+int velute(int d1, int d2, int d3)
 {
-	char answer;
-	printf("voulez savoir les regles Y/N\n");
-	scanf ("%c", &answer);
+	int nb;
 
+	if (d1+d2==d3)
+	{
+		nb =2*square(d3);
+		return nb;
+	}
+	else
+	{
+		if (d3+d2==d1)
+		{	
+			nb =2*square(d1);
+			return nb;
+		}
+		
+		else
+		{
+			if (d3+d1==d2)
+			{
+				nb =2*square(d2);
+				return nb;
+			}	
+		}
+	}
 	
+}
+
+
+int chouette(int d1, int d2, int d3)
+{
+	int nb;
+	if (d1==d2)
+	{
+		nb=d1;
+	}
+	else
+	{
+		if (d2==d3)
+		{
+			nb=d2;
+		}
+		else
+		{
+			if (d3==d1)
+			{
+				nb=d1;
+			}
+			
+		}
+		
+	}
 	
+	int squarenb;
+	squarenb=nb*nb;	
+	return squarenb;
+}
+
+
+
+int sequence_test(int d1,int d2,int d3)
+{
+	if (d3-d2== TRUE)
+	{
+		if (d2-d1== TRUE)
+		{
+			return TRUE;
+		}
+	}
+	if (d2-d1== TRUE)
+	{
+		if (d1-d3== TRUE)
+		{
+			/* code */
+			return TRUE;
+		}
+	}
 	
+	if (d1-d3== TRUE)
+	{
+		if (d3-d2== TRUE)
+		{
+			/* code */
+			return TRUE;
+		}
+	}
+	
+	if (d2-d3== TRUE)
+	{
+		if (d3-d1== TRUE)
+		{
+			/* code */
+			return TRUE;
+		}
+	}	
+	
+	if (d3-d1== TRUE)
+	{
+		if (d1-d2== TRUE)
+		{
+			/* code */
+			return TRUE;
+		}
+	}
+
+	if (d1-d2== TRUE)
+	{
+		if (d2-d3== TRUE)
+		{
+			/* code */
+			return TRUE;
+		}
+	}
 }
 
 
 
 
-int alea_dice()  //nombre aleatoire entre 1 et 6
-{
-	
-	int nb = rand()%6+1;
-	return nb;
-}
+
+
 
 
 int ask_nb_player() // nombre de joueur
@@ -51,6 +166,8 @@ int ask_nb_player() // nombre de joueur
  return nb;
 	
 }
+
+
 
 
 int scoreboard (int nbplr, int show_score)
