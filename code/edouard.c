@@ -3,6 +3,7 @@
 #include <time.h>
 
 #define LARGEURMAX 156
+#define SCOREMAX 343
 #define TRUE 1
 
 int square(int nb)
@@ -86,7 +87,11 @@ int chouette(int d1, int d2, int d3)
 	return squarenb;
 }
 
-
+int partie_finie(int score[])
+{
+	return !(score[0]<SCOREMAX && score[1]<SCOREMAX && score[2]<SCOREMAX && score[3]<SCOREMAX && score[4]<SCOREMAX && score[5]<SCOREMAX);
+	
+}
 
 int sequence_test(int d1,int d2,int d3)
 {
@@ -144,9 +149,76 @@ int sequence_test(int d1,int d2,int d3)
 }
 
 
+void test_velute(int dice[],int score[],int player)
+{
+	if (dice[0]+dice[1]==dice[2] || dice[2]+dice[1]==dice[0] || dice[2]+dice[0]==dice[1] )
+	{
+		printf("c'est une Velute \n");
+		score[player]+=velute(dice[0], dice[1],dice[2]);
+		
+	}
+}
 
+void test_suite(int dice[])
+{
+	if (sequence_test(dice[0], dice[1],dice[2])== TRUE)
+	{
+		printf("c'est une suite \n");
 
+	}
+}
 
+void test_culdechouette(int dice[])
+{
+	if (dice[0] == dice[1] )
+	{
+		if (dice[0] == dice[2])
+		{
+			
+				printf("c'est un cul de chouette\n"); // X10 le score
+			
+		}
+	}
+}
+
+void test_souflette(int dice[])
+{
+	if (dice[0] == 4 || dice[1] == 4 || dice[2] == 4 )
+	{
+		if (dice[0] == 2 || dice[1] == 2 || dice[2] == 2 )
+		{
+			if (dice[0] == 1 || dice[1] == 1 || dice[2] == 1 )
+			{
+				
+				printf("c'est une Souflette\n");
+			}
+		}
+	}
+}
+
+void test_chouette(int dice[],int score[],int player)
+{
+		if (dice[0] == dice[1] || dice[1] == dice[2] || dice[2] == dice[0] )
+	{
+	printf("c'est une chouette\n");
+		score[player]+=chouette(dice[0],  dice[1], dice[1]);
+		
+		
+	}
+}
+
+void init_dice(int dice[])
+{
+	
+	for ( int i = 0; i < 3; ++i)
+	{
+		
+		dice[i] = rand()%6+1;
+										/// lancement des dés
+		printf("Dé %d = %d \n", i+1, dice[i]);
+
+	}
+}
 
 
 
