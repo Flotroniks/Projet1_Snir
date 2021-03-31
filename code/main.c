@@ -12,9 +12,11 @@
 int nb_player=0;
 int score[6];
 
+
 int main()
 {
 	srand( time( NULL ) );
+
 	/* code */
 	//line();
 	//logo();
@@ -32,22 +34,21 @@ int main()
 		
 		//score[0]=45454;
 		for (int i_for_player = 0; i_for_player < nb_player && partie_finie(score)==FALSE; i_for_player++)
+		
 		{
-
-			//char next='t';
 			printf("appuyer sur enter\n");
-			//scanf("%s",&next);
+			
 			getchar();
 
 			init_dice(dice);
 
 			test_chouette(dice,score,i_for_player);
 				
-			test_souflette(dice);
+			test_souflette(dice, score, i_for_player, nb_player);
 
-			test_culdechouette(dice);
+			test_culdechouette(dice, score,i_for_player);
 
-			test_suite(dice);
+			test_suite(dice, score, i_for_player, nb_player);
 
 			test_velute( dice, score,i_for_player);
 
@@ -56,8 +57,7 @@ int main()
 			}
 	}
 
-//	scoreboard(nb_player, *score);
-
+scoreboard(nb_player, score);
 
 	return 0;
 }
