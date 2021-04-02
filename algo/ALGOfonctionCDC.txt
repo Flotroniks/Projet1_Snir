@@ -1,0 +1,399 @@
+#Inclure <stdio.h>
+#Inclure <stdlib.h>
+#Inclure <time.h>
+#Inclure "edouard.h"
+
+#Définir LARGEURMAX 156
+#Définir SCOREMAX 343
+#Définir TRUE 1
+#Définir FALSE 0
+
+vide init_dice(Entier dice[]) //fini
+{
+	
+	Pour ( Entier i = 0; i < 3; ++i)
+	{
+		
+		dice[i] = rand()%6+1;
+										/// lancement des dés
+		écrire("Dé  %d = %d \n", i+1, dice[i]);
+
+	}
+}
+
+Entier square(Entier nb) //fini
+{
+	Entier resultat;
+	resultat=nb*nb;
+	retour resultat;	
+}
+
+
+Entier velute(Entier d1, Entier d2, Entier d3) //fini
+{
+	Entier nb;
+
+	si (d1+d2==d3)
+	{
+		nb =2*square(d3);
+		retour nb;
+	}
+	sinon
+	{
+		si (d3+d2==d1)
+		{	
+			nb =2*square(d1);
+			retour nb;
+		}
+		
+		sinon
+		{
+			si (d3+d1==d2)
+			{
+				nb =2*square(d2);
+				retour nb;
+			} finsi	
+		}finsi
+	}finsi
+	
+}
+
+
+Entier chouette(Entier d1, Entier d2, Entier d3) //fini
+{
+	Entier nb;
+	si (d1==d2)
+	{
+		nb=d1;
+	}
+	sinon
+	{
+		si (d2==d3)
+		{
+			nb=d2;
+		}
+		sinon
+		{
+			si (d3==d1)
+			{
+				nb=d1;
+			}finsi
+			
+		}finsi
+		
+	}finsi
+			
+	retour square(nb);
+}
+
+Entier partie_finie(Entier score[])
+{
+	retour !(score[0]<SCOREMAX && score[1]<SCOREMAX && score[2]<SCOREMAX && score[3]<SCOREMAX && score[4]<SCOREMAX && score[5]<SCOREMAX);
+	
+}
+
+Entier sequence_test(Entier d1,Entier d2,Entier d3) //finie
+{
+	si (d3-d2== TRUE)
+	{
+		si (d2-d1== TRUE)
+		{
+			retour TRUE;
+		}finsi
+	}finsi
+	si (d2-d1== TRUE)
+	{
+		si (d1-d3== TRUE)
+		{
+			/* code */
+			retour TRUE;
+		}finsi
+	}finsi
+	
+	si (d1-d3== TRUE)
+	{
+		si (d3-d2== TRUE)
+		{
+			/* code */
+			retour TRUE;
+		}finsi
+	}finsi
+	
+	si (d2-d3== TRUE)
+	{
+		si (d3-d1== TRUE)
+		{
+			/* code */
+			retour TRUE;
+		}finsi
+	}finsi
+	
+	si (d3-d1== TRUE)
+	{
+		si (d1-d2== TRUE)
+		{
+			/* code */
+			retour TRUE;
+		}finsi
+	}finsi
+
+	si (d1-d2== TRUE)
+	{
+		si (d2-d3== TRUE)
+		{
+			/* code */
+			retour TRUE;
+		}finsi
+	}finsi
+}
+
+vide test_suite(Entier dice[],Entier score[],Entier player,Entier nbplayer)  //fini
+{
+	Entier test_nbplayer_suite;
+	si (sequence_test(dice[0], dice[1],dice[2])== TRUE)
+	{
+		écrire("c'est une suite \n");
+		char yes='O';
+		char NO='N';
+		char test;
+
+		écrire("\nquels joueur a tapé sur la table en criant \"Grelotte ça piquote ! \" en dernier ?\n ");
+		écrire("Il y a-t-il une égalité ? O/N\n ");
+		lire("%c",&test);
+		si(test== yes)
+		{
+			Entier play_again=FALSE;
+			faire
+			{
+				écrire("\nquels joueur à criée \"Sans fin est la moisissure des bières bretonnes! \" en dernier\n ");
+				
+				lire("%d",&test_nbplayer_suite);
+
+				si (test_nbplayer_suite<=nbplayer && test_nbplayer_suite>0 )
+				{
+					play_again=TRUE;
+					score[test_nbplayer_suite]-=10;
+				}
+				
+			}Tant que(play_again==FALSE);
+		}
+		sinon
+		{
+			lire("%d",&test_nbplayer_suite);
+			score[test_nbplayer_suite]-=10;					
+		}finsi
+		
+		//score[player]+=velute(dice[0], dice[1],dice[2]);
+	}finsi
+}
+
+
+vide test_velute(Entier dice[],Entier score[],Entier player)//fini
+{
+	si (dice[0]+dice[1]==dice[2] || dice[2]+dice[1]==dice[0] || dice[2]+dice[0]==dice[1] )
+	{
+		écrire("c'est une Velute \n");
+		score[player]+=velute(dice[0], dice[1],dice[2]);
+		
+	}finsi
+}
+
+
+
+vide test_culdechouette(Entier dice[],Entier score[],Entier player) //fini
+{
+	si (dice[0] == dice[1] )
+	{
+		si (dice[0] == dice[2])
+		{
+			
+				écrire("c'est un cul de chouette\n"); 
+
+				score[player]+=40+10*dice[0]; // X10 le score +40
+		}finsi
+	}finsi
+}
+
+vide test_souflette(Entier dice[],Entier score[],Entier player,Entier nbplayer) //fini
+{
+	Entier test_4=FALSE;
+	Entier test_2=FALSE;	
+	Entier test_1=FALSE;
+	Entier souflette=TRUE;
+	Entier Chosen_player;
+	si (dice[0] == 4 || dice[1] == 4 || dice[2] == 4 )
+	{
+		si (dice[0] == 2 || dice[1] == 2 || dice[2] == 2 )
+		{
+			si (dice[0] == 1 || dice[1] == 1 || dice[2] == 1 )
+			{
+				
+				écrire("c'est une Souflette\n");
+				écrire("Designez un joueur autre que vous en disant:'En garde ma mignone'\n");
+				lire("%d",&Chosen_player);
+				si (Chosen_player<nbplayer && Chosen_player!=player )
+				{
+					
+					Pour (Entier i = 0; i < 3; i++)
+					{
+						init_dice(dice);
+						écrire("\n\n");
+						Pour (Entier j = 0; j < 3; j++)
+						{
+							
+							si (dice[j]==4)
+							{
+								test_4=TRUE;
+							}finsi
+							si (dice[j]==2)
+							{
+								test_2=TRUE;
+							}finsi
+							
+							si (dice[j]==1)
+							{
+								test_1=TRUE;
+							}finsi
+						}
+						si (test_1 && test_2 && test_4)
+						{
+							écrire("Souflette reussi \nessai=%d\n",i+1);
+							si (i==0)
+							{
+								score[player]-=50;
+								score[Chosen_player]+=50;
+							}finsi
+							si (i==1)
+							{
+								score[player]-=40;
+								score[Chosen_player]+=40;
+							}finsi
+							si (i==2)
+							{
+								score[player]-=30;
+								score[Chosen_player]+=30;
+							}finsi
+							break;       //condition remplie fairenc on quitte la boucle
+						}
+						
+						
+					}
+					si ((test_1 && test_2 && test_4)==FALSE)
+					{
+						score[player]+=30;
+						score[Chosen_player]-=30;
+					}finsi
+					écrire("score joueur %d = %d",player,score[Chosen_player]);
+						
+				}
+				
+
+			}finsi
+		}finsi
+	}finsi
+}
+
+vide test_chouette(Entier dice[],Entier score[],Entier player)//fini
+{
+		si (dice[0] == dice[1] || dice[1] == dice[2] || dice[2] == dice[0] )
+	{
+	écrire("c'est une chouette\n");
+		score[player]+=chouette(dice[0], dice[1], dice[1]);	
+	}finsi
+}
+
+
+Entier ask_nb_player() // nombre de joueur   //fini
+{
+	Entier nb=0;
+	faire
+	{
+		écrire("Combien de joueur dans cette partie?\n");
+		lire("%d", &nb);
+	} Tant que (nb<2 || nb>6);
+ retour nb;
+	
+}
+
+
+Entier scoreboard (Entier nbplr, Entier show_score)
+{
+	Entier size_column = LARGEURMAX/nbplr;
+	//écrire("%d",size_column);
+	Entier i;
+	Pour (i = 0; i < nbplr; i++)
+	{  	écrire("	joueur %d	", i+1);
+		Pour (Entier j = 0; j < size_column; j++)
+		{
+			
+			si (j==size_column-1 )
+			{
+				si (i<nbplr-1)
+				{
+					écrire("|");
+				}finsi
+			}finsi
+			
+		}
+		
+	}
+	écrire("\n");
+	Pour (i = 0; i < nbplr; i++)
+
+	{	
+		Pour (Entier j = 0; j < size_column; j++)
+		{
+			
+			
+				
+					écrire("=");	
+		}
+		
+	}
+	
+	écrire("\n");
+
+	Pour (Entier k = 0; k < nbplr; k++)
+	{
+		écrire("	   666		");
+		Pour (Entier l = 0; l < size_column; l++)
+		{
+			
+			si (l==size_column-1 )
+			{
+				si (k<nbplr-1)
+				{
+					écrire("|");
+				}finsi
+			}finsi
+		}
+	}
+	
+	
+
+	écrire("\n");
+}
+
+
+
+Entier line_break(Entier linejump)
+{
+	Pour (Entier i = 0; i < linejump; i++)
+	{
+		écrire("\n");
+	}
+	
+}
+
+
+Entier line ()
+{
+	Entier i;
+	Pour (i = 0; i < LARGEURMAX; i++)
+	{
+		écrire("=");
+	}
+	écrire("\n");
+	écrire("%d",i);
+}
+}

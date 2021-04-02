@@ -1,0 +1,63 @@
+#Inclure <stdio.h>
+#Inclure <stdlib.h>
+#Inclure <time.h>
+
+#Inclure "edouard.h"
+#Inclure "phillipe.h"
+
+
+#définir TRUE 1
+#définir FALSE 0
+#définir SCOREMAX 343
+Variable entiere nb_player=0;
+Variable entiere score[6];
+
+
+Entier main()
+{
+	srand( time( NULL ) );
+
+	/* code */
+	//line();
+	//logo();
+	//line();
+	
+	nb_player=ask_nb_player();
+	//line_break(6);	
+	écrire("nombre de joueur = %d\n", nb_player);
+	
+	Entier dice[3]	;
+	
+
+	Tant que ( partie_finie(score)==FALSE )
+	{	
+		
+		//score[0]=45454;
+		pour (int i_pour_player = 0; i_pour_player < nb_player && partie_finie(score)==FALSE; i_for_player++)
+		
+		{
+			écrire("appuyer sur enter\n");
+			
+			getchar();
+
+			init_dice(dice);
+
+			test_chouette(dice,score,i_pour_player);
+				
+			test_souflette(dice, score, i_pour_player, nb_player);
+
+			test_culdechouette(dice, score,i_pour_player);
+
+			test_suite(dice, score, i_pour_player, nb_player);
+
+			test_velute( dice, score,i_pour_player);
+
+			écrire("\nscore joueur%d =%d \n",i_pour_player+1 ,score[i_pour_player]);
+
+			}
+	}
+
+scoreboard(nb_player, score);
+
+	retour 0;
+}
